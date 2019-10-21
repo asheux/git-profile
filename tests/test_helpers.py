@@ -8,6 +8,9 @@ from .mock_data import REPOS
 
 
 class TestHelpers:
+    """
+    test suite for the helper functions
+    """
     def test_topics(self, topics_result):
         with patch('app.helpers.topics') as m_data:
             m_data.return_value = topics_result

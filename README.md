@@ -31,7 +31,7 @@ $ python3 -m pytest
 - Run application
 
 ```
-$ python run.py
+$ python3 run.py
 ```
 
 ### Test application
@@ -47,7 +47,7 @@ $ python run.py
 $ curl -i http://127.0.0.1:5000/repos/pygame
 ```
 
-- Expected response
+- Sample response
 
 ```
 {
