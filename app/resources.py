@@ -18,17 +18,14 @@ class GitProfile(Resource):
         # instances
         github = GitHub(organization)
         bitbucket = BitBucket(organization)
-
         # errors
         errors = [error
                 for error in [bitbucket.error,github.error]
                 if error is not None
                 ]
-
         if len(errors) == 0:
             b_langs, bw_count, bo_count, bf_count = bitbucket.bit_results()
             t_count, gw_count, g_langs, gf_count, go_count = github.git_results()
-
             merged_data = {
                     'public_repos': {
                         'original_repos': bo_count + go_count,

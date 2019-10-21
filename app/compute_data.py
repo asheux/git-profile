@@ -3,6 +3,7 @@ imports
 """
 from .fetch_data import SendRequest
 from .helpers import topics, languages, watchers, public_repos
+from .settings import GITHUB_BASE_URL, BITBUCKET_BASE_URL
 
 
 class BitBucket(SendRequest):
@@ -11,17 +12,19 @@ class BitBucket(SendRequest):
     """
     def __init__(self, orgs):
         self.orgs = orgs
-        self.res, self.error = self.get_bitbucket(self.orgs)
+        self.url = f"{BITBUCKET_BASE_URL}/2.0/repositories/{self.orgs}"
+        self.res, self.error = self.get_json_data(self.url)
 
     def bit_results(self):
         """
         merge all the computed results for bitbucket
         """
         repos = self.res['values']
-        fetched_watchers = self.start_request(repos)
-        fetched_watchers[:] = [repo[0]
-                for repo in fetched_watchers if repo is not None]
 
+        # bitbucket provides a url to fetch watchers/followers
+        # therefore we need to pull out all the urls and fetch 
+        # watchers concurrently
+        fetched_watchers = self.run_process(repos)
         watchers_count = watchers('size', fetched_watchers)
         f_count, o_count = public_repos(repos, 'bitbucket')
         b_langs = languages(repos)
@@ -35,7 +38,8 @@ class GitHub(SendRequest):
     """
     def __init__(self, orgs):
         self.orgs = orgs
-        self.repos, self.error = self.get_github(orgs)
+        self.url = f"{GITHUB_BASE_URL}/orgs/{self.orgs}/repos"
+        self.repos, self.error = self.get_json_data(self.url)
 
     def git_results(self):
         """

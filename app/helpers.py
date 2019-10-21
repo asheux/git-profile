@@ -26,6 +26,7 @@ def languages(repos: list) -> set:
             if lang is not None and lang != ""}
     return result
 
+
 def watchers(key: str, list_data: list) -> int:
     """
     computes the number of watchers/followers
