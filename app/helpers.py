@@ -20,7 +20,10 @@ def languages(repos: list) -> set:
     all repos
     """
     langs = [repo['language'] for repo in repos]
-    result = {lang.lower() for lang in langs if lang != ""}
+    result = {
+            lang.lower()
+            for lang in langs
+            if lang is not None and lang != ""}
     return result
 
 def watchers(key: str, list_data: list) -> int:

@@ -30,15 +30,13 @@ class SendRequest:
 
     @classmethod
     def get_bitbucket(cls, organization):
-        if organization is not None:
-            url = f"{BITBUCKET_BASE_URL}/2.0/repositories/{organization}"
-            return cls.get_data(url)
+        url = f"{BITBUCKET_BASE_URL}/2.0/repositories/{organization}"
+        return cls.get_data(url)
 
     @classmethod
     def get_github(cls, organization):
-        if organization is not None:
-            url = f"{GITHUB_BASE_URL}/orgs/{organization}/repos"
-            return cls.get_data(url)
+        url = f"{GITHUB_BASE_URL}/orgs/{organization}/repos"
+        return cls.get_data(url)
 
     @classmethod
     def generate_links(cls, repos):
