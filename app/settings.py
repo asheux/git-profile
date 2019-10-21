@@ -15,4 +15,5 @@ HEADERS = {
         'accept': 'Accept: application/vnd.github.v3+json, \
                 application/vnd.github.mercy-preview+json'}
 DEVELOPMENT = True
+TESTING = True
 APP_DEBUG = True

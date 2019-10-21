@@ -31,7 +31,7 @@ class SendRequest:
             print('Connection refused')
         return data, error
 
-    def generate_links(self, repos):
+    def generate_links(self, repos: list):
         """
         For each repository from the list of repo urls
         produce a link to fetch data and return
@@ -69,7 +69,7 @@ class SendRequest:
             results = [task.result() for task in completed]
             return results
 
-    def run_process(self, repos):
+    def run_process(self, repos: list):
         """
         runs all the requests concurrently
         using event loop that dispatches each event

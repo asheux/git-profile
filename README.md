@@ -25,7 +25,7 @@ $ pip install -r requirements.txt
 - Run tests
 
 ```
-$ pytest
+$ python3 -m pytest
 ```
 
 - Run application
