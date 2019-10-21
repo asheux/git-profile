@@ -11,7 +11,7 @@ from . import api
 
 class GitProfile(Resource):
     """
-    This class aggrates data from both Github and 
+    This class aggrates data from both Github and
     Bitbucket APIs to present information in a unified
     response
     """
@@ -21,7 +21,8 @@ class GitProfile(Resource):
         bitbucket = BitBucket(organization)
         # errors
         errors = [error
-                for error in [bitbucket.error,github.error]
+                for error
+                in [bitbucket.error,github.error]
                 if error is not None
                 ]
         if len(errors) == 0:
@@ -32,7 +33,7 @@ class GitProfile(Resource):
                         'original_repos': bo_count + go_count,
                         'forked_repos': bf_count + gf_count
                         },
-                    'languages': len(b_langs | g_langs),
+                    'languages': list(b_langs | g_langs),
                     'watchers': bw_count + gw_count,
                     'topics': t_count,
                     }

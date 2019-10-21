@@ -1,5 +1,8 @@
 # git-profile
 
+![Travis](https://travis-ci.com/asheuh/git-profile.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/asheuh/git-profile/badge.svg?branch=master)](https://coveralls.io/github/asheuh/git-profile?branch=master)
+
 ### Setup application
 
 - Clone repo
@@ -25,7 +28,7 @@ $ pip install -r requirements.txt
 - Run tests
 
 ```
-$ python3 -m pytest
+$ py.test --cov=app tests/
 ```
 
 - Run application
@@ -52,13 +55,18 @@ $ curl -i http://127.0.0.1:5000/api/v1/repos/pygame
 ```
 {
     "result": {
-        "languages": 4,
-            "public_repos": {
-                "forked_repos": 1,
-                "original_repos": 12
-            },
-            "topics": 11,
-            "watchers": 1802
+        "languages": [
+            "c++",
+            "python",
+            "c",
+            "ruby"
+        ],
+        "public_repos": {
+            "forked_repos": 1,
+            "original_repos": 12
+        },
+        "topics": 11,
+        "watchers": 1820
     }
 }
 ```

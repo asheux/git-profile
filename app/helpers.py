@@ -9,8 +9,8 @@ def topics(repos: list) -> list:
     gather all the topics for a each repo
     and return a list of the topics
     """
-    result = list(reduce(lambda x, y: x + y,
-        [repo['topics'] for repo in repos]))
+    tops = [repo['topics'] for repo in repos]
+    result = list(reduce(lambda x, y: x + y, tops))
     return result
 
 
@@ -20,9 +20,9 @@ def languages(repos: list) -> set:
     all repos
     """
     langs = [repo['language'] for repo in repos]
-    result = {
-            lang.lower()
-            for lang in langs
+    result = {lang.lower()
+            for lang
+            in langs
             if lang is not None and lang != ""}
     return result
 
@@ -34,8 +34,7 @@ def watchers(key: str, list_data: list) -> int:
     """
     # key is used to determine where the watchers are from
     # either bitbucket or github
-    total = sum(item[key]
-            for item in list_data if item is not None)
+    total = sum(item[key] for item in list_data if item is not None)
     return total
 
 
@@ -48,14 +47,14 @@ def public_repos(repos: list, key: str) -> tuple:
     # key is used to determine where the repos are from
     # either bitbucket or github
     if key == 'bitbucket':
-        orig_repos[:] = [
-                repo for repo in repos
+        orig_repos[:] = [repo
+                for repo
+                in repos
                 if not repo['is_private'] and 'parent' not in repo]
         return (len(repos) - len(orig_repos)), len(orig_repos)
     else:
-        orig_repos[:] = [
-                repo for repo in repos
+        orig_repos[:] = [repo
+                for repo
+                in repos
                 if not repo['private'] and not repo['fork']]
         return (len(repos) - len(orig_repos)), len(orig_repos)
-
-
