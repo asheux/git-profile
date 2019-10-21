@@ -20,13 +20,17 @@ class SendRequest:
         """
         make requests to a remote server
         """
+        data = None
+        error = None
         try:
             response = requests.get(url, headers=HEADERS)
             if response.status_code == 200:
-                return response.json()
-            return None
+                data = response.json()
+            else:
+                error = response.json()
         except ConnectionError:
             print('Connection refused')
+        return data, error
 
     @classmethod
     def get_bitbucket(cls, organization):

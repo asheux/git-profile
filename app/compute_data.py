@@ -11,16 +11,20 @@ class BitBucket(SendRequest):
     """
     def __init__(self, orgs):
         self.orgs = orgs
-        self.repos = self.get_bitbucket(self.orgs)['values']
+        self.res, self.error = self.get_bitbucket(self.orgs)
 
     def bit_results(self):
         """
         merge all the computed results for bitbucket
         """
-        fetched_watchers = self.start_request(self.repos)
+        repos = self.res['values']
+        fetched_watchers = self.start_request(repos)
+        fetched_watchers[:] = [repo[0]
+                for repo in fetched_watchers if repo is not None]
+
         watchers_count = watchers('size', fetched_watchers)
-        f_count, o_count = public_repos(self.repos, 'bitbucket')
-        b_langs = languages(self.repos)
+        f_count, o_count = public_repos(repos, 'bitbucket')
+        b_langs = languages(repos)
 
         return b_langs, watchers_count, o_count, f_count
 
@@ -31,7 +35,7 @@ class GitHub(SendRequest):
     """
     def __init__(self, orgs):
         self.orgs = orgs
-        self.repos = self.get_github(orgs)
+        self.repos, self.error = self.get_github(orgs)
 
     def git_results(self):
         """

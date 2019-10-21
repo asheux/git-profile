@@ -15,29 +15,31 @@ class GitProfile(Resource):
     response
     """
     def get(self, organization):
-
+        # instances
         github = GitHub(organization)
         bitbucket = BitBucket(organization)
-        b_langs, bw_count, bo_count, bf_count = bitbucket.bit_results()
-        t_count, gw_count, g_langs, gf_count, go_count = github.git_results()
 
-        total_watchers = bw_count + gw_count
-        langs_set = b_langs | g_langs
-        total_forks = bf_count + gf_count
-        total_originals = bo_count + go_count
+        # errors
+        errors = [error
+                for error in [bitbucket.error,github.error]
+                if error is not None
+                ]
 
-        merged_data = {
-                'public_repos': {
-                    'original_repos': total_originals,
-                    'forked_repos': total_forks
-                    },
-                'languages': len(langs_set),
-                'watchers': total_watchers,
-                'topics': t_count
-                }
+        if len(errors) == 0:
+            b_langs, bw_count, bo_count, bf_count = bitbucket.bit_results()
+            t_count, gw_count, g_langs, gf_count, go_count = github.git_results()
 
-        return jsonify({'result': merged_data})
-
+            merged_data = {
+                    'public_repos': {
+                        'original_repos': bo_count + go_count,
+                        'forked_repos': bf_count + gf_count
+                        },
+                    'languages': len(b_langs | g_langs),
+                    'watchers': bw_count + gw_count,
+                    'topics': t_count,
+                    }
+            return jsonify({'result': merged_data})
+        return jsonify({'errors': errors})
 
 
 
