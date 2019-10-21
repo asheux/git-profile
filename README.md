@@ -38,13 +38,13 @@ $ python3 run.py
 
 - On postman
 
-- [http://127.0.0.1:5000/repos/pygame](http://127.0.0.1:5000/repos/pygame)
-- [http://127.0.0.1:5000/repos/mailchimp](http://127.0.0.1:5000/repos/mailchimp)
+- [http://127.0.0.1:5000/api/v1/repos/pygame](http://127.0.0.1:5000/api/v1/repos/pygame)
+- [http://127.0.0.1:5000/api/v1/repos/mailchimp](http://127.0.0.1:5000/api/v1/repos/mailchimp)
 
 - Using curl command
 
 ```
-$ curl -i http://127.0.0.1:5000/repos/pygame
+$ curl -i http://127.0.0.1:5000/api/v1/repos/pygame
 ```
 
 - Sample response

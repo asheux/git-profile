@@ -4,21 +4,20 @@ imports
 import logging
 
 # external imports
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_restful import Resource, Api
 
-# app level imports
-from .settings import *
-from .resources import GitProfile
 
+bp = Blueprint('api', __name__, url_prefix='/api/v1')
+api = Api(bp)
 
 def create_app(config_name):
+    from . import resources
     app = Flask(__name__)
 
     app.config.from_object(config_name)
 
-    api = Api(app)
-    api.add_resource(GitProfile, '/repos/<string:organization>')
+    app.register_blueprint(bp)
 
     return app
 

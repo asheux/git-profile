@@ -6,6 +6,7 @@ from flask_restful import Resource
 from flask import jsonify
 
 from .compute_data import BitBucket, GitHub
+from . import api
 
 
 class GitProfile(Resource):
@@ -38,7 +39,4 @@ class GitProfile(Resource):
             return jsonify({'result': merged_data})
         return jsonify({'errors': errors})
 
-
-
-
-
+api.add_resource(GitProfile, '/repos/<string:organization>')
